@@ -243,6 +243,7 @@ class Object
 
   end
 
+  alias :create_attributes :to_class
   alias :map_sample :map_object
   alias :each_univ :each_universal
   alias :fnr :find_and_replace

@@ -27,10 +27,10 @@ end
 Gem::Specification.new do |spec|
 
   spec.name          = "procemon"
-  spec.version       = File.open(File.join(File.dirname(__FILE__),"VERSION")).read.chomp
+  spec.version       = File.open(File.join(File.dirname(__FILE__),"VERSION")).read.split("\n")[0].chomp.gsub(' ','')
   spec.authors       = ["Adam Luzsi"]
   spec.email         = ["adamluzsi@gmail.com"]
-  spec.description   = %q{This is a collection of my Ruby Procs in the adventure of becoming the best!}
+  spec.description   = %q{This is a collection of my Ruby Procs in the adventure of becoming the best! This is including Tons of monkey_patch for new features to classes, meta-programing tricks, terminal argument controls, daemonise trick, tmp folder helpers, Application centralized datas, folder structure logic , meta data control, dynamic lib read etc}
   spec.summary       = %q{Gotta catch em all!}
   spec.homepage      = "https://github.com/adamluzsi/procemon"
   spec.license       = "MIT"
