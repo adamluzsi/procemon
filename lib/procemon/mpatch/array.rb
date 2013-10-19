@@ -31,9 +31,19 @@ class Array
     return hash[target_element]
   end
 
-  # remove n. element
+  # remove n. element from the end
+  # and return a new object
   def pinch n=1
-    return self[0..(self.count-2)]
+    return self[0..(self.count-(n+1))]
+  end
+
+  # remove n. element from the end
+  # and return the original object
+  def pinch! n=1
+    n.times do
+      self.pop
+    end
+    return self
   end
 
   # return boolean by other array

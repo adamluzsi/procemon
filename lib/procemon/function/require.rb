@@ -1,23 +1,64 @@
 module Kernel
 
   # load meta-s
-  def meta_load
+  def meta_load(app_folder= Dir.pwd)
+    # find elements
+    begin
+      Dir.glob( File.join(app_folder, "lib", "**","meta" ,"*.{rb,ru}") ).each do |one_rb_file|
+        require one_rb_file
+      end
+    end
+  end
+
+  def get_meta_config(app_folder= Dir.pwd)
+
+    # defaults
+    begin
+      require "yaml"
+      target_config_hash= Hash.new()
+    end
 
     # find elements
     begin
-      Dir.glob( File.join(Dir.pwd, "lib", "**","meta" ,"*.rb") ).each do |one_rb_file|
-        require one_rb_file
+
+      Dir.glob(File.join(app_folder, "lib", "**","meta" ,"*.{yaml,yml}")).each do |config_object|
+
+        # defaults
+        begin
+          config_name_elements= config_object.split(File::SEPARATOR)
+          type=     config_name_elements.pop.split('.')[0]
+          config_name_elements.pop
+          category= config_name_elements.pop
+          tmp_hash= Hash.new()
+          yaml_data= YAML.load(File.open(config_object))
+        end
+
+        # processing
+        begin
+          if target_config_hash[category].nil?
+            target_config_hash[category]= { type => yaml_data }
+          else
+            target_config_hash[category][type]= yaml_data
+          end
+        end
+
       end
+
+    end
+
+    # return data
+    begin
+      return target_config_hash
     end
 
   end
 
   # mount libs
-  def mount_libs
+  def mount_libs(app_folder= Dir.pwd)
 
     # load lib files
     begin
-      Dir.glob(File.join(Dir.pwd, "lib","*.{rb,ru}")).uniq.each do |one_rb_file|
+      Dir.glob(File.join(app_folder, "lib","*.{rb,ru}")).uniq.each do |one_rb_file|
         require one_rb_file
       end
     end
@@ -25,9 +66,9 @@ module Kernel
   end
 
   # Offline repo activate
-  def mount_modules
+  def mount_modules(app_folder= Dir.pwd)
 
-    Dir.glob(File.join(Dir.pwd, "{module,modules}","{gem,gems}","**","lib")).select{|f| File.directory?(f)}.each do |one_path|
+    Dir.glob(File.join(app_folder, "{module,modules}","{gem,gems}","**","lib")).select{|f| File.directory?(f)}.each do |one_path|
       $LOAD_PATH << one_path
     end
 
@@ -117,7 +158,7 @@ module Kernel
   end
 
   # generate config from yaml
-  def generate_config(target_config_hash= Application.config)
+  def generate_config(target_config_hash= Application.config,app_folder= Dir.pwd)
 
     # defaults
     begin
@@ -130,7 +171,7 @@ module Kernel
     # find elements
     begin
 
-      Dir.glob(File.join(Dir.pwd, "lib", "**","meta" ,"*.{yaml,yml}")).each do |config_object|
+      Dir.glob(File.join(app_folder, "lib", "**","meta" ,"*.{yaml,yml}")).each do |config_object|
 
         # defaults
         begin
@@ -161,7 +202,7 @@ module Kernel
       # get config files
       begin
         config_yaml_paths= Array.new()
-        Dir.glob(File.join(Dir.pwd, "{config,conf}","*.{yaml,yml}")).uniq.each do |one_path|
+        Dir.glob(File.join(app_folder, "{config,conf}","*.{yaml,yml}")).uniq.each do |one_path|
 
           case true
 
@@ -218,12 +259,12 @@ module Kernel
 
   end
 
-  def generate_documentation(boolean= false,keyword= "generate")
+  def generate_documentation(boolean= false,keyword= "generate",app_folder= Dir.pwd)
     boolean= false if boolean.nil?
     if boolean == true
 
       document_generators= Array.new
-      tmp_path_container= Dir.glob(File.join(Dir.pwd, "docs", "**", "*.{rb,ru}"))
+      tmp_path_container= Dir.glob(File.join(app_folder, "docs", "**", "*.{rb,ru}"))
       tmp_path_container.each do |one_path|
         if one_path.include? keyword
           document_generators.push one_path

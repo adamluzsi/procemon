@@ -165,6 +165,84 @@ class Object
 
   end
 
+  # this will check that the class is
+  # defined or not in the runtime memory
+  def class_exists?
+    klass = Module.const_get(self)
+    return klass.is_a?(Class)
+  rescue NameError
+    return false
+  end
+
+  # This will convert a symbol or string and format to be a valid
+  # constant name and create from it a class with instance attribute accessors
+  # Best use is when you get raw data in string from external source
+  # and you want make them class objects
+  #
+  #   :hello_world.to_class(:test)
+  #   HelloWorld.to_class(:sup)
+  #   hw_var = HelloWorld.new
+  #   hw_var.sup = "Fine thanks!"
+  #   hw_var.test = 5
+  #
+  #   puts hw_var.test
+  #
+  #   #> produce 5 :Integer
+  #
+  #   you can also use this formats
+  #   :HelloWorld , "hello.world",
+  #   "hello/world", "Hello::World",
+  #   "hello:world"...
+  def to_class(*attributes) #name
+
+    unless self.class == Symbol || self.class == String || self.class == Class
+      raise ArgumentError, "object must be symbol or string to make able build class to it"
+    end
+
+    class_name= self.to_s
+
+    unless self.class == Class
+
+      class_name= class_name[0].upcase+class_name[1..class_name.length]
+      %w[ _ . : / ].each do |one_sym|
+
+        #sym_length= one_sym.length
+        loop do
+          index_nmb= class_name.index(one_sym)
+          break if index_nmb.nil?
+          class_name[index_nmb..index_nmb+1]= class_name[index_nmb+1].upcase
+        end
+
+      end
+
+    end
+
+    create_attribute = Proc.new do |*args|
+
+    end
+
+    unless class_name.class_exists?
+
+      Object.const_set(
+          class_name,
+          Class.new
+      )
+
+    end
+
+
+    class_name.constantize.class_eval do
+      attributes.each do |one_attribute|
+        attr_accessor one_attribute.to_s.to_sym
+      end
+    end
+
+
+
+    return true
+
+  end
+
   alias :map_sample :map_object
   alias :each_univ :each_universal
   alias :fnr :find_and_replace
