@@ -193,7 +193,7 @@ class Object
   #   :HelloWorld , "hello.world",
   #   "hello/world", "Hello::World",
   #   "hello:world"...
-  def to_class(*attributes) #name
+  def to_class(*attributes)
 
     unless self.class == Symbol || self.class == String || self.class == Class
       raise ArgumentError, "object must be symbol or string to make able build class to it"
@@ -206,7 +206,6 @@ class Object
       class_name= class_name[0].upcase+class_name[1..class_name.length]
       %w[ _ . : / ].each do |one_sym|
 
-        #sym_length= one_sym.length
         loop do
           index_nmb= class_name.index(one_sym)
           break if index_nmb.nil?

@@ -7,7 +7,7 @@ class RND
         a_string = Random.rand(length)
         a_string == 0 ? a_string += 1 : a_string
         mrg_prt  = (0...a_string).map{ ('a'..'z').to_a[rand(26)] }.join
-        first_string ? mrg += mrg_prt : mrg+= " #{mrg_prt}"
+        first_string ? mrg += mrg_prt : mrg+= " " + "#{mrg_prt}"
         first_string = false
       end
       return mrg

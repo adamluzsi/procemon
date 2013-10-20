@@ -1,27 +1,6 @@
 # coding: utf-8
 
-### Get Files from dir
-begin
-
-  files_to_be_loaded = %w[version.rb]
-  spec_files  = Array.new
-  Dir[File.expand_path(File.join(File.dirname(__FILE__),"**","*"))].sort.uniq.each do |one_file_name|
-    one_file_name = File.expand_path one_file_name
-    file_name = one_file_name[(File.expand_path(File.dirname(__FILE__)).to_s.length+1)..(one_file_name.length-1)]
-
-    if !one_file_name.include?("pkg")
-      if !File.directory? file_name
-        spec_files.push file_name
-        STDOUT.puts file_name if $DEBUG
-        if files_to_be_loaded.include? one_file_name.split(File::SEPARATOR).last
-          load one_file_name
-        end
-      end
-    end
-
-  end
-
-end
+require File.expand_path(File.join(File.dirname(__FILE__),"files.rb"))
 
 ### Specification for the new Gem
 Gem::Specification.new do |spec|
@@ -30,12 +9,12 @@ Gem::Specification.new do |spec|
   spec.version       = File.open(File.join(File.dirname(__FILE__),"VERSION")).read.split("\n")[0].chomp.gsub(' ','')
   spec.authors       = ["Adam Luzsi"]
   spec.email         = ["adamluzsi@gmail.com"]
-  spec.description   = %q{This is a collection of my Ruby Procs in the adventure of becoming the best! This is including Tons of monkey_patch for new features to classes, meta-programing tricks, terminal argument controls, daemonise trick, tmp folder helpers, Application centralized datas, folder structure logic , meta data control, dynamic lib read etc}
+  spec.description   = %q{This is a collection of my Ruby Procs in the adventure of becoming the best! In short this provides extra tools in Application configs, argumens processing,daemonise, eval,port check, require relative files, or directories, string to duck parsing, system tmp_dir using, meta-programing, and a lot of monkey patch for extra functionality }
   spec.summary       = %q{Gotta catch em all!}
   spec.homepage      = "https://github.com/adamluzsi/procemon"
   spec.license       = "MIT"
 
-  spec.files         = spec_files
+  spec.files         = SpecFiles
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]

@@ -1,43 +1,67 @@
-procemon
-========
-
-Gotta catch em all!
-This is a collection of my Ruby Procs in the adventure of becoming the best!
 
 
-This is including Tons of monkey_patch for new features to classes,
-meta-programing tricks, terminal argument controls, daemonise trick,
-tmp folder helpers, Application centralized datas, folder structure logic ,
-meta data control, dynamic lib read etc
+in Systemu
 
+systemu(*a, &b) SystemUniversal.new(*a, &b).systemu end
 
-short lazy doc
+SystemUniversal.version() SystemUniversal::VERSION end
 
+version() SystemUniversal::VERSION end
+
+quote(*words)
+
+initialize argv, opts = {}, &block
+
+systemu
+
+          IO.popen#{ quote(@ruby#{ quote(c['program']) }", 'r+' do |pipe|
+quote *args, &block
+
+new_thread cid, block
+
+child_setup tmp
+
+quietly
+
+child_program config
+
+# encoding: utf-8
+        PIPE.flush# the process is ready yo!
+relay srcdst
+
+tmpdir d = Dir.tmpdir, max = 42, &b
+
+getopts opts = {}
+
+systemu
+
+initialize(stream)
+
+join
 
 
 in Str2duck
 
-# convert string object to something what is it looks to be as duck type mean to do
-# useful for RESTfull aps when data sent as string
 duck
 
 
 in Tmp_dir
 
-# init a tmpdir in the OS tmp folder with the application name
-# (by default this is the root folder name)
 tmpdir_init
+
+
+in Documentation
+
+find_doc_part(oth_str)
 
 
 in Name
 
-# what it looks to be
 set_app_name_by_root_folder
 
 
 in Argv
 
-# what it looks to be
 process_parameters
 
 
@@ -47,25 +71,51 @@ in Daemon
 # will update the pid file with the child pid.
 self.start pid, pidfile, outfile, errfile
 
+      write pid, pidfile#if kill pidfile
 # Attempts to write the pid of the forked process to the pid file.
 self.write pid, pidfile
 
+    $stderr.puts "While writing the PID to file, unexpected#{e.class#{e}"
 # Try and read the existing pid from the pid file and signal the
 # process. Returns true for a non blocking status.
 self.kill(pidfile)
 
+    $stdout.puts "The process#{opid} did not exist: Errno::ESRCH"                if $DEBUG
+    $stderr.puts "Lack of privileges to manage the process#{opid}: Errno::EPERM" if $DEBUG
+    $stderr.puts "While signaling the PID, unexpected#{e.class#{e}"           if $DEBUG
 # Send stdout and stderr to log files for the child process
 self.redirect outfile, errfile
+
 self.daemonize
+
 self.kill_with_pid
+
+            puts "terminated process at#{row.chomp}" if $DEBUG
+            puts "At process#{row.chomp#{ex}"     if $DEBUG
+        system "ps -ef | grep#{$0}"
+#system "netstat --listen"
+#puts "\nLepton is around 10300-10399"
+      puts "Exception has occured#{ex}"
 self.terminate
+
 self.kill_by_name(*args)
+
+# name switch
+    while `ps aux | grep#{target_name}`.split(' ')[1] != ""  ||(Time.now - start_time) < 6
+        Process.kill "TERM",`ps aux | grep#{target_name}`.split(' ')[1].to_i
+        $stdout.puts "The process#{target_name} did not exist: Errno::ESRCH"                if debug_mod
+        $stderr.puts "Lack of privileges to manage the process#{target_name}: Errno::EPERM" if debug_mod
+        $stderr.puts "While signaling the PID, unexpected#{e.class#{e}"           if debug_mod
+# name switch back
 self.stop
+
+# kill methods
 self.init
 
 
 in Inject_methods
 
+#TODO refacotr to binding logic because this is useless now to me in hardcore use
 # this will inject a code block to a target instance method
 # by default the before or after sym is not required
 # default => before
@@ -108,8 +158,11 @@ mount_libs(app_folder= Dir.pwd)
 # Offline repo activate
 mount_modules(app_folder= Dir.pwd)
 
-#Return File_name => File_path
+#Return File_name:File_path
 get_files(folder)
+
+# Pre def. variables
+    # Pre variables
 
 # Validation
 # Check that does the folder is absolute or not
@@ -118,25 +171,36 @@ get_files(folder)
 # require by absolute path directory's files
 require_directory(folder)
 
+      puts "file will be loaded#{file_name} from\n\t#{file_path}" if $DEBUG
 # require sender relative directory's files
 require_relative_directory(folder)
 
-# generate config from yaml (default is app_root/config folder)
+# pre format
+# find elements
+# after format
+# generate config from yaml
 generate_config(target_config_hash= Application.config,app_folder= Dir.pwd)
 
-# try load all the ruby files marked with "generate" in they name from app_root/docs
+# defaults
+# find elements
+# defaults
+# processing
+# update by config
+# get config files
+# params config load
+# load to last lvl environment
 generate_documentation(boolean= false,keyword= "generate",app_folder= Dir.pwd)
 
 
 in Port
 
 get_port(mint_port,max_port,host="0.0.0.0")
+
 port_open?(port,host="0.0.0.0")
 
 
 in Eval
 
-# NOT working yet, need to rework the exclude method
 # safe_eval(string [, binding [, filename [,lineno]]] *allowed_class/module_names )  -> obj
 #
 # Evaluates the Ruby expression(s) in <em>string</em>. If
@@ -146,6 +210,8 @@ in Eval
 # present, they will be used when reporting syntax errors.
 #
 #    def get_binding(str)
+get_binding(str)
+
 #      return binding
 #    end
 #    str = "hello"
@@ -157,6 +223,7 @@ safe_eval(*args)
 in Process
 
 self.daemonize
+
 self.stop
 
 
@@ -213,18 +280,25 @@ constantize
 # find and replace object in object
 find_and_replace(input,*params)
 
-# it was made only for fun to make same each to array and hash and everything
+# some default values
+#None!
+# Do the find and replace
+# return value
+# each for any object
 each_universal(&block)
 
 # map an object => experiment
 map_object(symbol_key="$type")
 
+# processing
+# finish
 # is class?
 class?
 
 # convert class instance instance variables into a hash object
 convert_to_hash
 
+      raise NoMethodError, "undefined method `to_hash' for#{self.inspect}"
 # this will check that the class is
 # defined or not in the runtime memory
 class_exists?
@@ -249,8 +323,7 @@ class_exists?
 #   "hello/world", "Hello::World",
 #   "hello:world"...
 to_class(*attributes)
-or
-create_attributes(*attributes)
+
 
 in File
 
@@ -366,7 +439,4 @@ deep_include?(sub_hash)
 
 in Kernel
 
-# eats puts like formated printf method
-# just use an integer what will be the distance
-# between elements and the elements next to it
 putsf(integer,*args)

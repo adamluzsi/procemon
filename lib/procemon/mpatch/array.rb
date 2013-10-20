@@ -51,7 +51,6 @@ class Array
   # not in the target array
   def contain?(oth_array)#anothere array
     (oth_array & self) == oth_array
-    #(oth_array - self).size == 0
   end
 
   # do safe transpose
