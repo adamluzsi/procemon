@@ -21,14 +21,14 @@ class Class
 
           when options == :before
             begin
-              block.call *arguments
+              block.call_with_binding self.get_binding, *arguments
               original_method.call *arguments
             end
 
           when options == :after
             begin
               original_method.call *arguments
-              block.call *arguments
+              block.call_with_binding self.get_binding, *arguments
             end
 
         end
@@ -55,14 +55,14 @@ class Class
 
         when options == :before
           begin
-            block.call *args
+            block.call_with_binding self.get_binding, *args
             self.__send__ :"old_#{method.to_s}", *args
           end
 
         when options == :after
           begin
             self.__send__ :"old_#{method.to_s}", *args
-            block.call *args
+            block.call_with_binding self.get_binding, *args
           end
 
       end

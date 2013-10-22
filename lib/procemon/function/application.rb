@@ -13,8 +13,8 @@ module Application
                   :config_file,
                   :create_documentation
   end
-  self.config= Hash.new()
-  self.environment= String.new()
+  self.config ||= Hash.new()
+  self.environment ||= String.new()
 end
 
 App= Application unless defined?(App)
