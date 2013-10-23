@@ -1,4 +1,4 @@
-class LookupStack
+class Bindless
 
   def initialize(bindings = [])
     @bindings = bindings

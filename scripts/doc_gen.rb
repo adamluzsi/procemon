@@ -23,6 +23,10 @@ Dir.glob(File.join(File.dirname(__FILE__),"..","lib","procemon","**","*.{rb,ru}"
       comment.push one_line_per_file.gsub(/\W*#/,"#")
     end
 
+    if one_file_path == String.new
+      comment.clear
+    end
+
     if one_line_per_file =~ /\W*def\W/
 
       if DOC_DATA[one_file_path.split(File::Separator).last.split('.')[0]].nil?

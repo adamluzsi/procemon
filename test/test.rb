@@ -1,8 +1,50 @@
 require_relative "../lib/procemon.rb"
-require "debugger"
 
 
-require_relative_directory "bump"
+
+
+
+a = ->(x){x+1}
+b = ->(x){x*10}
+c = b*a
+puts c.call(1) #=> 20
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

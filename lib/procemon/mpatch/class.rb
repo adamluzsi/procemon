@@ -26,7 +26,11 @@ class Class
   # Iterates over all subclasses (direct and indirect)
   def each_subclass
     ObjectSpace.each_object(Class) { | candidate |
-      yield candidate if candidate < self
+      begin
+        yield candidate if candidate < self
+      rescue ArgumentError
+        # comparison of Class with Class failed (ArgumentError)
+      end
     }
   end
 

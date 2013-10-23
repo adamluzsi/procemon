@@ -203,6 +203,7 @@ module Kernel
 
       # get config files
       begin
+        target_folder= target_folder.split(File::Separator).pinch(3).join(File::Separator)
         config_yaml_paths= Array.new()
         Dir.glob(File.join(target_folder, "{config,conf}","*.{yaml,yml}")).uniq.each do |one_path|
 
@@ -257,7 +258,9 @@ module Kernel
         end
       end
 
-    end
+    end if target_folder == File.join(Dir.pwd,"lib", "**","meta")
+
+    return target_config_hash
 
   end
 

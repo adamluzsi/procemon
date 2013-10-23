@@ -1,7 +1,7 @@
 class Proc
 
   def call_with_binding(bind, *args)
-    LookupStack.new([bind]).run_proc(self, *args)
+    Bindless.new([bind]).run_proc(self, *args)
   end
 
   def call_with_obj(obj, *args)
