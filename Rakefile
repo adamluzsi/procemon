@@ -1,1 +1,1 @@
-require "bundler/gem_tasks"
+require File.join "bundler","gem_tasks"

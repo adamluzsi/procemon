@@ -72,7 +72,7 @@ module Kernel
   # Offline repo activate
   def mount_modules(target_folder= File.join(Dir.pwd,"{module,modules}","{gem,gems}") )
     Dir.glob(File.join(target_folder,"**","lib")).select{|f| File.directory?(f)}.each do |one_path|
-      $LOAD_PATH << one_path
+      $LOAD_PATH.unshift one_path
     end
   end
 

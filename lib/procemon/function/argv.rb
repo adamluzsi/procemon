@@ -22,9 +22,6 @@ module Procemon
           when "--kill","-kill"
             Application.daemon= "stop"
 
-          when "--debuger","-bugger"
-            require "debugger"
-            debugger
 
           when "--config","-c"
             Application.config_file= ARGV[(ARGV.index(one_param)+1)]
@@ -54,8 +51,6 @@ module Procemon
                      "--environment","-e","",
                      "this is for target a config file:",
                      "--config","-c","",
-                     "This is for use debugger (development tool)",
-                     "--debug","-bug","",
                      "This is for start application as a forked background process",
                      "--daemon","-d","",
                      "This is for drop database data",
