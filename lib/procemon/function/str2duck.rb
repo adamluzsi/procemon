@@ -81,5 +81,8 @@ class String
     end
 
   end
-  alias_method :to_duck, :duck
+
+  alias :to_duck :duck
+  alias :to_d    :duck
+
 end
