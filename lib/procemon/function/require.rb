@@ -107,60 +107,54 @@ module Kernel
 
   # require by absolute path directory's files
   def require_directory(folder)
-    get_files(folder).each do |file_name,file_path|
-      if file_path.split('.').last == 'rb'
-        load file_path
-      end
+    Dir.glob(File.join(folder,"**","*.{rb,ru}")).each do |file_path|
+      require file_path
     end
   end
 
   # require sender relative directory's files
+  # return the directory and the sub directories file names (rb/ru)
   def require_relative_directory(folder)
 
     # pre format
     begin
 
-      path= caller[0].split('.{rb,ru}:').first.split(File::SEPARATOR)
-      path= path[0..(path.count-2)]
-
-      if !File.directory?(path.join(File::SEPARATOR))
-        path.pop
+      # path create from caller
+      begin
+        path= caller[0].split(".{rb,ru}:").first.split(File::SEPARATOR)
+        path= path[0..(path.count-2)]
       end
 
-      path= File.join(path.join(File::SEPARATOR))
+      # after formatting
+      begin
 
-      if path != File.expand_path(path)
-        path= File.expand_path(path)
+        if !File.directory?(path.join(File::SEPARATOR))
+          path.pop
+        end
+        path= File.join(path.join(File::SEPARATOR))
+        if path != File.expand_path(path)
+          path= File.expand_path(path)
+        end
+
       end
-
-      path= File.join(path,folder)
 
     end
 
     # find elements
     begin
-      tmp_array = Array.new
-      get_files(path).sort.each do |file_name,file_path|
-        if file_path.split('.').last == 'rb'
-          tmp_array.push file_path
-        end
-      end
-    end
-
-    # after format
-    begin
-      tmp_array.uniq!
-      tmp_array.sort!
-      tmp_array.each do |full_path_to_file|
-        require full_path_to_file
+      return Dir.glob(File.join(path,folder,"**","*.{rb,ru}")).each do |one_path|
+        require one_path
       end
     end
 
   end
 
   # generate config from yaml
-  def generate_config(target_folder= File.join(Dir.pwd,"lib", "**","meta"),
-      target_config_hash= Application.config)
+  def generate_config(
+      target_folder= File.join(Dir.pwd,"lib", "**","meta"),
+      override= true,
+      target_config_hash= Application.config
+  )
 
     # defaults
     begin
@@ -172,7 +166,6 @@ module Kernel
 
     # find elements
     begin
-
       Dir.glob(File.join(target_folder,"*.{yaml,yml}")).each do |config_object|
 
         # defaults
@@ -190,13 +183,15 @@ module Kernel
           if target_config_hash[category].nil?
             target_config_hash[category]= { type => yaml_data }
           else
-            target_config_hash[category][type]= yaml_data
+            unless override == false
+              target_config_hash[category][type]= yaml_data
+            end
           end
         end
 
       end
-
     end
+
 
     # update by config
     begin
