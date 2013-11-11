@@ -1,4 +1,5 @@
 module Application
+
   class << self
     attr_accessor :config,
                   :environment,
@@ -11,10 +12,14 @@ module Application
                   :db_drop,
                   :daemon,
                   :config_file,
-                  :create_documentation
+                  :create_documentation,
+                  :client
   end
-  self.config ||= Hash.new()
+
+  self.client      ||= Hash.new()
+  self.config      ||= Hash.new()
   self.environment ||= String.new()
+
 end
 
 App= Application unless defined?(App)
