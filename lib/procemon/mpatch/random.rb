@@ -1,16 +1,13 @@
 class RND
   class << self
-    def string(length= 7,amount=1)
-      mrg = String.new
-      first_string = true
+    def string(length= 7,amount=1,hyphen= " ")
+      amount_container= Array.new
       amount.times do
-        a_string = Random.rand(length)
-        a_string == 0 ? a_string += 1 : a_string
-        mrg_prt  = (0...a_string).map{ ('a'..'z').to_a[rand(26)] }.join
-        first_string ? mrg += mrg_prt : mrg+= " " + "#{mrg_prt}"
-        first_string = false
+        mrg= String.new
+        mrg= (0...length).map{ ('a'..'z').to_a[rand(26)] }.join
+        amount_container.push mrg
       end
-      return mrg
+      return amount_container.join(hyphen)
     end
     def integer(length= 3)
       Random.rand(length)
@@ -29,7 +26,6 @@ class RND
     end
   end
 end
-
 
 # alias in Random from RND
 begin
