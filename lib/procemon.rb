@@ -52,6 +52,8 @@ module Procemon
     Dir.glob(File.join(Dir.pwd,'{doc,docs,document,documents}','**','generate_*.{rb,ru}')).each do |one_doc_generator|
       require one_doc_generator
     end
+    puts "done!"
+    Process.exit!
   end
 
   ### Load the requirements in to the general Module
