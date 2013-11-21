@@ -48,6 +48,12 @@ module Procemon
 
   end
 
+  def self.doc_gen
+    Dir.glob(File.join(Dir.pwd,'{doc,docs,document,documents}','**','generate_*.{rb,ru}')).each do |one_doc_generator|
+      require one_doc_generator
+    end
+  end
+
   ### Load the requirements in to the general Module
   #load File.expand_path(File.join(File.dirname(__FILE__),'procemon'
 
