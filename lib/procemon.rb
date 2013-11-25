@@ -49,7 +49,7 @@ module Procemon
   end
 
   def self.doc_gen
-    Dir.glob(File.join(Dir.pwd,'{doc,docs,document,documents}','**','generate_*.{rb,ru}')).each do |one_doc_generator|
+    Dir.glob(File.join(Dir.pwd,'{doc,docs,document,documents}','**','generate_*')).each do |one_doc_generator|
       require one_doc_generator
     end
     puts "done!"
