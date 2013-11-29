@@ -1,7 +1,13 @@
 require_relative "../lib/procemon.rb"
 
-puts require_relative_directory( "hello").inspect
 
+module Test
+  module Test2
+
+  end
+end
+
+puts Test.submodules
 
 
 

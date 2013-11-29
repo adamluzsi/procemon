@@ -35,14 +35,16 @@ class Class
   end
 
   # Returns an Array of subclasses (direct and indirect)
-  def subclasses
+  def subclasses_all
     ret = []
     each_subclass {|c| ret << c}
     ret
   end
 
+  alias :all_subclasses :subclasses_all
+
   # Returns an Array of direct subclasses
-  def direct_subclasses
+  def subclasses
     ret = []
     each_subclass {|c| ret << c if c.superclass == self }
     ret
