@@ -37,7 +37,7 @@ class Class
   # Returns an Array of subclasses (direct and indirect)
   def subclasses_all
     ret = []
-    each_subclass {|c| ret << c}
+    each_subclass {|c| ret.push c}
     ret
   end
 
@@ -46,7 +46,7 @@ class Class
   # Returns an Array of direct subclasses
   def subclasses
     ret = []
-    each_subclass {|c| ret << c if c.superclass == self }
+    each_subclass {|c| ret.push(c) if c.superclass == self }
     ret
   end
 
