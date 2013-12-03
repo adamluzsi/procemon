@@ -49,6 +49,7 @@ class Class
     each_subclass {|c| ret.push(c) if c.superclass == self }
     ret
   end
+  alias :subclass :subclasses
 
   # create singleton attribute
   def class_attr_accessor(name)
