@@ -1,7 +1,11 @@
 class Object
-  def get_binding
+
+  def binding?
     return binding
   end
+
+  alias :get_binding :binding?
+
 end
 
 class Array
