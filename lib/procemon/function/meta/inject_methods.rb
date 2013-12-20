@@ -19,13 +19,13 @@ class Class
       define_singleton_method method do |*arguments|
 
         if options == :before
-          block.call_with_binding self.get_binding, *arguments
+          block.source.to_proc(self.binding?).call *arguments
         end
 
         original_method.call *arguments
 
         if options == :after
-          block.call_with_binding self.get_binding, *arguments
+          block.source.to_proc(self.binding?).call *arguments
         end
 
       end
@@ -42,25 +42,20 @@ class Class
   #  end
   #
   def inject_instance_method(method,options=:before,&block)
+
     self.class_eval do
       alias_method :"old_#{method.to_s}", method
     end
     extended_process = Proc.new do |*args|
 
-      case true
+      if options == :before
+        block.source.to_proc(self.binding?).call *args
+      end
 
-        when options == :before
-          begin
-            block.call_with_binding self.get_binding, *args
-            self.__send__ :"old_#{method.to_s}", *args
-          end
+      self.__send__ :"old_#{method.to_s}", *args
 
-        when options == :after
-          begin
-            self.__send__ :"old_#{method.to_s}", *args
-            block.call_with_binding self.get_binding, *args
-          end
-
+      if options == :after
+        block.source.to_proc(self.binding?).call *args
       end
 
     end

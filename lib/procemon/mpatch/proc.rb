@@ -20,7 +20,6 @@ class Proc
       return_string= String.new
       block= 0
     end
-
     if @@source_cache.keys.include? self.object_id
       return @@source_cache[self.object_id]
     else
@@ -50,5 +49,6 @@ class Proc
     end
 
   end
+  alias :source_string :source
 
 end

@@ -1,4 +1,4 @@
-require_relative "../lib/procemon.rb"
+require 'procemon'
 
 class TestT
 
