@@ -1,3 +1,0 @@
-#class Boolean
-#
-#end

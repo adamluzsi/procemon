@@ -1,4 +1,6 @@
 class File
+
+  # create a file, if not exsist create file, and dir if needed
   def self.create(route_name ,filemod="w",string_data=String.new)
     begin
 
@@ -45,4 +47,25 @@ class File
       puts ex
     end
   end
+
+  # start read the file object on each line
+  # optionable an integer value to start read line at
+  # compatible with mac (i am linux user, so not tested)
+  def each_line_from(start_at=1,&block)
+    unless [Integer,Fixnum,Bignum].include?(start_at.class)
+      raise ArgumentError, "invalid line index"
+    end
+    begin
+      line_num= 1
+      text= self.read
+      text.gsub!(/\r\n?/, "\n")
+      text.each_line do |*line|
+        if line_num >= start_at
+          block.call *line
+        end
+        line_num += 1
+      end
+    end
+  end
+
 end

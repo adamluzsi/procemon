@@ -64,10 +64,32 @@ class String
     self.match(/^[[:upper:]]/) ? true : false
   end
 
+  # return the number how often the str is with in the self
+  # by default with \b regex border
+  def frequency(str)
+    begin
+      if str.class == String
+        str= '\b'+str+'\b'
+      end
+    end
+    self.scan(/#{str}/).count
+  end
+
+  # create process object from valid process string
+  def to_proc(binding=nil)
+    begin
+
+      if !self.include?('Proc.new') && !self.include?('lambda')
+        raise ArgumentError, "string obj is not a valid process source"
+      end
+
+      if binding.nil?
+        return eval(self)
+      else
+        return eval(self,binding)
+      end
+
+    end
+  end
+
 end
-
-=begin
-
-/\b[A-Z]\w*/ #> this is for find capitalized words
-
-=end
