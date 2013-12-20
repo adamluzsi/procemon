@@ -1,33 +1,11 @@
 require_relative "../lib/procemon.rb"
+require_relative "lab"
 
-class TestT
+#hello_world!
+#puts Dir.pwd.concat(Proc.new{
+#  "hy"
+#}.source_location[0])
 
-  def self.test
-    puts self
-  end
+puts method(:hello_world!).source
 
-  def test
-    puts self
-  end
 
-end
-
-TestT.inject_instance_method :test do
-
-  puts "hello world! instance"
-
-end
-
-TestT.inject_singleton_method :test, :after do
-
-  puts "hello world! singleton"
-
-end
-
-TestT.test
-TestT.new.test
-
-#> TestT
-#> hello world! singleton
-#> hello world! instance
-#> #<TestT:0x0000000288b808>

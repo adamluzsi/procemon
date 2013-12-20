@@ -1,7 +1,5 @@
 class Class
 
-  #TODO refacotr to binding logic because this is useless now to me in hardcore use
-
   # this will inject a code block to a target instance method
   # by default the before or after sym is not required
   # default => before
