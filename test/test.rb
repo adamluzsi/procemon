@@ -1,17 +1,14 @@
 require_relative "../lib/procemon.rb"
 
+def test &block
 
-class Test1
-end
-
-class Test2 < Test1
+  puts block.source
 
 end
 
 
-ret= Array.new
-Test1.each_subclass{|c| ret.push c}
-puts ret
 
-
+test do
+  "hello world!"
+end
 

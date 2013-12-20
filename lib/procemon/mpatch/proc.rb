@@ -39,7 +39,13 @@ class Proc
 
       return_string.sub!(/^[\w\W]*Proc.new\s*{/,'Proc.new{')
       return_string.sub!(/}[^}]*$/,"}")
+
+      if !return_string.include?('Proc.new')
+        return_string.sub!(/^[^{]*(?!={)/,'Proc.new')
+      end
+
       @@source_cache[self.object_id]= return_string
+
       return return_string
     end
 

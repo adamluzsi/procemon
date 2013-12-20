@@ -17,21 +17,17 @@ class Class
     self.singleton_class.__send__ :undef_method, method
     self.class_eval do
       define_singleton_method method do |*arguments|
-        case true
 
-          when options == :before
-            begin
-              block.call_with_binding self.get_binding, *arguments
-              original_method.call *arguments
-            end
-
-          when options == :after
-            begin
-              original_method.call *arguments
-              block.call_with_binding self.get_binding, *arguments
-            end
-
+        if options == :before
+          block.call_with_binding self.get_binding, *arguments
         end
+
+        original_method.call *arguments
+
+        if options == :after
+          block.call_with_binding self.get_binding, *arguments
+        end
+
       end
     end
 
