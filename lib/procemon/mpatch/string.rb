@@ -75,33 +75,4 @@ class String
     self.scan(/#{str}/).count
   end
 
-  # create process object from valid process string
-  def to_proc(binding=nil)
-    begin
-
-      if !self.include?('Proc.new') && !self.include?('lambda')
-        raise ArgumentError, "string obj is not a valid process source"
-      end
-
-      if binding.nil?
-        return eval(self)
-      else
-        return eval(self,binding)
-      end
-
-    end
-  end
-
-  # this is a helper to create source strings from procs
-  def source_formater_for_line_sub
-    self.gsub!(';',"\n")
-    self.gsub!(/\bdo\b/,'{')
-    self.gsub!(/\bend\b/,'}')
-
-    self.frequency(/{/)+
-        self.frequency(/def/)-
-        self.frequency(/}/)
-  end
-
-
 end

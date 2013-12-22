@@ -1,5 +1,6 @@
 # duck typing
 class String
+
   def duck
 
     begin
