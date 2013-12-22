@@ -31,12 +31,10 @@ class ProcSource < String
 
       # do cache to proc!
       begin
-        puts Proc.source_cache.inspect
-
-        #Proc.source_cache[return_proc.object_id]= self
+        Proc.source_cache[return_proc.object_id]= self
       end
 
-      eval(self)
+      return return_proc
     end
   end
 

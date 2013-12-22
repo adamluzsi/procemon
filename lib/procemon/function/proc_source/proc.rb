@@ -6,16 +6,22 @@ class Proc
     attr_accessor :source_cache
   end
   Proc.source_cache= Hash.new
-  def source
+  def source(test=nil)
     # defaults
     begin
       return_string= ProcSource.new
       block= 0
     end
 
+    unless test.nil?
+      puts Proc.source_cache.inspect
+      puts self.object_id
+    end
+
     unless Proc.source_cache[self.object_id].nil?
       return Proc.source_cache[self.object_id]
     else
+
       File.open(File.expand_path(self.source_location[0])
       ).each_line_from self.source_location[1] do |line|
         block += line.source_formater_for_line_sub
