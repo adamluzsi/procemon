@@ -31,3 +31,4 @@ TestT.new.test
 #> hello world! singleton
 #> hello world! instance
 #> #<TestT:0x0000000288b808>
+

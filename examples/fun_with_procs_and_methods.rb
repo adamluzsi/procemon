@@ -40,7 +40,7 @@ proc_source= test.source
 merged_proc= ( method_source.body + proc_source.body ).build(*(method_source.params+proc_source.params))
 puts merged_proc
 puts merged_proc.to_proc
-puts merged_proc.to_proc.source_location.inspect
+puts merged_proc.to_proc.source
 
 
 

@@ -18,7 +18,7 @@ class ProcSource < String
   def to_proc(binding=nil)
     begin
 
-      if !self.include?('Proc.new') && !self.include?('lambda')
+      unless self.split("\n")[0].include?('Proc.new')
         raise ArgumentError, "string obj is not a valid process source"
       end
 

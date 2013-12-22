@@ -10,6 +10,9 @@ class Class
   #
   def inject_singleton_method(method,options=:before,&block)
 
+    puts block.source
+
+
     original_method= self.method(method).clone
     #Singleton.methods[self.object_id]= self.method(method)
     self.singleton_class.__send__ :undef_method, method
