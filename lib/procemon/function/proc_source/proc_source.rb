@@ -1,13 +1,12 @@
 class ProcSource < String
 
-  def self.build(source_code_to_be_wrappered,*params_name_array)
-    self.new(source_code_to_be_wrappered).wrapper_around!(*params_name_array)
+  def self.build(source_code_to_be_wrappered,*params_obj_array)
+    self.new(source_code_to_be_wrappered).wrapper_around!(*params_obj_array)
   end
 
   def wrapper_around!(*params)
     if !params.nil?
-      params.replace(
-          params.join(','))
+      params= params.join(',')
       params.prepend(' |')
       params.concat('|')
     end
@@ -23,15 +22,23 @@ class ProcSource < String
         raise ArgumentError, "string obj is not a valid process source"
       end
 
+      return_proc= nil
       if binding.nil?
-        return eval(self)
+        return_proc= eval(self)
       else
-        return eval(self,binding)
+        return_proc= eval(self,binding)
       end
 
+      # do cache to proc!
+      begin
+        puts Proc.source_cache.inspect
+
+        #Proc.source_cache[return_proc.object_id]= self
+      end
+
+      eval(self)
     end
   end
-
 
   def body
     body= ProcSourceBody.new(self.dup.to_s)
@@ -44,45 +51,41 @@ class ProcSource < String
   end
 
   def params
+    #SystemStackError
     params= self.dup
     params.sub!(params.split("\n")[0].scan(/\s*Proc.new\s*{/)[0],String.new)
-    params.replace params.split("\n")[0].scan(/^\s*{?\s*(.*)/)[0][0].gsub!('|','')
-    return params
+    params.sub!(' ','')
+    params= params.split("\n")[0].scan(/^\s*{?\s*(.*)/)[0][0].gsub!('|','')
+    if params.nil?
+      return nil
+    end
+    return ProcSourceParams[*params.split(',')]
   end
 
   def parameters
 
     return_array= Array.new
     params= self.params
-    params.gsub!(' ','')
-
-    params.split(',').each do |one_raw_parameter|
-
+    params.each do |one_raw_parameter|
       case true
-
         when one_raw_parameter.include?('=')
           begin
             return_array.push Array.new.push(:opt).push(
                                   one_raw_parameter.split('=')[0].to_sym)
           end
-
         when one_raw_parameter[0] == '*'
           begin
             one_raw_parameter[0]= ''
             return_array.push Array.new.push(:rest).push(
                                   one_raw_parameter.to_sym)
           end
-
         else
           begin
             return_array.push Array.new.push(:req).push(
                                   one_raw_parameter.to_sym)
           end
-
       end
-
     end
-
 
     return return_array
   end
