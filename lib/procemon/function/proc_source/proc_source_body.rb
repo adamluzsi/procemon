@@ -1,7 +1,7 @@
 class ProcSourceBody < String
 
   def +(oth_str)
-    ProcSourceBody.new(self.to_s + oth_str.to_s)
+    ProcSourceBody.new(self.dup.concat("\n").concat(oth_str.to_s))
   end
 
   # build proc source

@@ -14,15 +14,14 @@ class Class
   def inject_singleton_method(method,options={},&block)
 
     original_method= self.method(method).clone
-    #Singleton.methods[self.object_id]= self.method(method)
     self.singleton_class.__send__ :undef_method, method
 
-    proc_source= InjectMethodHelper.generate_source(
+    source_code= InjectMethodHelper.generate_source(
         block,original_method,options
     )
 
     self.define_singleton_method method do |*arguments|
-      proc_source.to_proc(self.binding?).call(*arguments)
+      source_code.to_proc(self.binding?).call(*arguments)
     end
 
     return nil
@@ -43,13 +42,16 @@ class Class
   def inject_instance_method(method,options={},&block)
 
     original_method= self.instance_method(method).clone
+
+    source_code= InjectMethodHelper.generate_source(
+        block,original_method,options
+    )
+
     self.class_eval do
       undef_method method
       define_method(
           method,
-          InjectMethodHelper.generate_source(
-              block,original_method,options
-          ).to_proc(self.binding?)
+          source_code.to_proc(self.binding?)
       )
     end
 
@@ -73,7 +75,6 @@ module InjectMethodHelper
           source_code= block.source.body+original_method.source.body
       end
     end
-
 
     # params
     begin
