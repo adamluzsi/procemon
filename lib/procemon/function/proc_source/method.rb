@@ -22,9 +22,15 @@ module MethodToProcSource
 
       begin
 
+        if return_string.split("\n")[0].include? '('
+          return_string.sub!('(',' ')
+          return_string.sub!(')',' ')
+        end
+
         args_to_replace = return_string.split("\n")[0].match(/\s*def\s*\S*\s*(.*)/).captures[0]
 
         if args_to_replace != String.new
+          args_to_replace.gsub!(' ','')
           return_string.sub!(args_to_replace,"|#{args_to_replace}|")
         end
 
