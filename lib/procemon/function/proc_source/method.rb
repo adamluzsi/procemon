@@ -1,4 +1,4 @@
-class Method
+module MethodToProcSource
 
   # creatue a raw eval-able process source, so you can set
   # the right bindings using the .to_proc call from String methods
@@ -48,4 +48,12 @@ class Method
   alias :source_string :source
   alias :proc_source   :source
 
+end
+
+class Method
+  include MethodToProcSource
+end
+
+class UnboundMethod
+  include MethodToProcSource
 end

@@ -1,8 +1,8 @@
 #encoding: UTF-8
 module Procemon
 
+  require File.join 'active_support','time'
   # load up helpers
-
   Dir.glob(\
       File.join(\
           File.dirname(__FILE__),\
@@ -12,7 +12,6 @@ module Procemon
   ).uniq.sort.each do |one_helper_file|
     load one_helper_file
   end
-
 
   def self.init_all
 
