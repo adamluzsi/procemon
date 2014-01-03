@@ -63,7 +63,7 @@ module InjectMethodHelper
     # source code
     begin
       source_code= nil
-      case options[:add].to_s[0].downcase
+      case options[:add].to_s.downcase[0]
         when "a"
           source_code= original_method.source.body+block.source.body
         else
@@ -74,8 +74,8 @@ module InjectMethodHelper
     # params
     begin
       source_params= nil
-      case options[:params].to_s.downcase
-        when "merged"
+      case options[:params].to_s.downcase[0]
+        when "m"
           begin
             source_params= (block.source.params+original_method.source.params)
           end

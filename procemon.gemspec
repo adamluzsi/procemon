@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
 
   ##=======Runtime-ENV================##
   #spec.add_runtime_dependency "commander", ['~>4.1.3']
-  spec.add_runtime_dependency "activesupport"
+  #spec.add_runtime_dependency "activesupport"
 
   ## Node.JS
   #spec.add_runtime_dependency "execjs"

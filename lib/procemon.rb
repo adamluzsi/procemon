@@ -1,17 +1,20 @@
 #encoding: UTF-8
 module Procemon
 
-  require File.join 'active_support','time'
+  require File.join(File.dirname(__FILE__),"procemon","function","require")
+  require_relative_directory File.join("procemon","function")
+  require_relative_directory File.join("procemon","mpatch")
+
   # load up helpers
-  Dir.glob(\
-      File.join(\
-          File.dirname(__FILE__),\
-          __FILE__.to_s.split(File::Separator).last.split('.')[0],
-          '**',"*.{rb,ru}"\
-      )\
-  ).uniq.sort.each do |one_helper_file|
-    load one_helper_file
-  end
+  #Dir.glob(\
+  #    File.join(\
+  #        File.dirname(__FILE__),\
+  #        __FILE__.to_s.split(File::Separator).last.split('.')[0],
+  #        '**',"*.{rb,ru}"\
+  #    )\
+  #).uniq.sort.each do |one_helper_file|
+  #  load one_helper_file
+  #end
 
   def self.init_all
 

@@ -1,4 +1,5 @@
-# duck typing
+require File.join 'active_support','time'
+
 class String
 
   def duck
