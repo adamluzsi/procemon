@@ -39,12 +39,12 @@ class ProcSource < String
   end
 
   def body
+
     body= ProcSourceBody.new(self.dup.to_s)
-    body.sub!(body.split("\n")[0].scan(/\s*Proc.new\s*{/)[0],String.new)
-    replace2= body.split("\n")[0].scan(/^\s*{?\s*(.*)/)[0][0]
-    body.sub!(replace2,String.new) if replace2 != String.new
+    body.sub!(/^\s*Proc\.new\s*{\s*[\S ]*/,String.new)
     body.gsub!(/^$\n/, String.new)
-    body[body.length-1]= String.new
+    body.sub!(/\s*}\s*$/,String.new)
+
     return body
   end
 

@@ -17,12 +17,15 @@ class Class
     #Singleton.methods[self.object_id]= self.method(method)
     self.singleton_class.__send__ :undef_method, method
 
+    proc_source= InjectMethodHelper.generate_source(
+        block,original_method,options
+    )
+
     self.define_singleton_method method do |*arguments|
-      InjectMethodHelper.generate_source(
-          block,original_method,options
-      ).to_proc(self.binding?).call(*arguments)
+      proc_source.to_proc(self.binding?).call(*arguments)
     end
 
+    return nil
   end
   alias :extend_singleton_method :inject_singleton_method
 
@@ -70,6 +73,7 @@ module InjectMethodHelper
           source_code= block.source.body+original_method.source.body
       end
     end
+
 
     # params
     begin

@@ -39,7 +39,6 @@ module MethodToProcSource
       return_string.sub!(/\s*\bdef\s*[\w\S]*/,'Proc.new{')
       return_string.sub!(/}[^}]*$/,"}")
 
-
       if !return_string.include?('Proc.new')
         return_string.sub!(/^[^{]*(?!={)/,'Proc.new')
       end
