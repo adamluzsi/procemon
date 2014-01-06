@@ -1,7 +1,11 @@
 class Async < BasicObject
 
   def initialize(callable)
-    @thread ||= ::Thread.new { callable.call }
+    begin
+      @thread ||= ::Thread.new { callable.call }
+    rescue ThreadError
+      @thread ||= callable.call
+    end
   end
 
   def value
@@ -17,7 +21,7 @@ class Async < BasicObject
   end
 
   def method_missing(method, *args)
-    value.send(method, *args)
+    value.__send__(method, *args)
   end
 
   def respond_to_missing?(method, include_private = false)
@@ -28,3 +32,4 @@ end
 
 #TODO implement paralel syncronizer,
 #     so multiple jobs can response as one return array
+# if thread number is overflowed only doing sync job
