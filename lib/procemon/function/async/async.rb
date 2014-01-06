@@ -1,10 +1,18 @@
 class Async < BasicObject
 
+  @@max_retry_times= 20
   def initialize(callable)
+    retry_times= 0
     begin
       @thread ||= ::Thread.new { callable.call }
     rescue ThreadError
-      @thread ||= callable.call
+      retry_times += 1
+      sleep 5
+      if retry_times <= @@max_retry_times
+        @thread ||= callable.call
+      else
+        retry
+      end
     end
   end
 
