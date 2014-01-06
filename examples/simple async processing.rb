@@ -1,7 +1,6 @@
 # Require Gemfile gems
 require_relative "../lib/procemon"
 
-
 calculation = async {
 
   sleep 10
