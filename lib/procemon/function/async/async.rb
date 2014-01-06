@@ -9,9 +9,9 @@ class Async < BasicObject
       retry_times += 1
       sleep 5
       if retry_times <= @@max_retry_times
-        @thread ||= callable.call
-      else
         retry
+      else
+        @thread ||= callable.call
       end
     end
   end
