@@ -1,14 +1,26 @@
-class Async < BasicObject
+Thread.abort_on_exception= true
+class Async #< BasicObject
 
-  @@max_retry_times= 20
+  # remove methods!
+  (Async.instance_methods-[
+      :undef_method,
+      :object_id,
+      :__send__,
+      :new
+  ]).each do |method|
+    undef_method method
+  end
+
+  @@max_retry ||= 6
   def initialize(callable)
-    retry_times= 0
+    retry_times= nil
     begin
       @thread ||= ::Thread.new { callable.call }
     rescue ThreadError
-      retry_times += 1
+      retry_times ||=  0
+      retry_times  +=  1
       sleep 5
-      if retry_times <= @@max_retry_times
+      if retry_times <= @@max_retry
         retry
       else
         @thread ||= callable.call
@@ -17,12 +29,19 @@ class Async < BasicObject
   end
 
   def value
-    @thread.value
+
+    #unless @thread.alive?
+    #else
+    #  sleep 1
+    #end
+
+    return @thread.value
+
   end
 
   def inspect
     if @thread.alive?
-      "#<Future running>"
+      "#<Async running>"
     else
       value.inspect
     end
@@ -37,7 +56,3 @@ class Async < BasicObject
   end
 
 end
-
-#TODO implement paralel syncronizer,
-#     so multiple jobs can response as one return array
-# if thread number is overflowed only doing sync job
