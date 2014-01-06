@@ -32,5 +32,9 @@ test2 = async {
 }
 
 start_time= Time.now
+
+asd= test1
+puts asd
+
 puts test1.value == test2.value
 puts Time.now-start_time

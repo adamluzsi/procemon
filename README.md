@@ -29,6 +29,10 @@ tells you how to play with proc and method objects source code,
 combine them, manipulate them, and convert back into live code
 with the right bindings
 
+the "simple async processing" will let you use os threads (1.9.n+)
+for multiprocessing so you can give multiple task to do and
+until you ask for the value, the process will be in the background
+
 ## LICENSE
 
 (The MIT License)
