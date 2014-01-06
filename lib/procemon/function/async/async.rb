@@ -11,32 +11,24 @@ class Async #< BasicObject
     undef_method method
   end
 
-  @@max_retry ||= 6
   def initialize(callable)
-    retry_times= nil
     begin
+      @rescue_state= nil
       @thread ||= ::Thread.new { callable.call }
+      @rescue_state= nil
     rescue ThreadError
-      retry_times ||=  0
-      retry_times  +=  1
+      @rescue_state ||= true
       sleep 5
-      if retry_times <= @@max_retry
-        retry
-      else
-        @thread ||= callable.call
-      end
+      retry
     end
   end
 
   def value
-
-    #unless @thread.alive?
-    #else
-    #  sleep 1
-    #end
-
+    until @rescue_state.nil?
+      puts "hahaha"
+      sleep 1
+    end
     return @thread.value
-
   end
 
   def inspect

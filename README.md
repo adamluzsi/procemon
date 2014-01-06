@@ -33,6 +33,9 @@ the "simple async processing" will let you use os threads (1.9.n+)
 for multiprocessing so you can give multiple task to do and
 until you ask for the value, the process will be in the background
 
+the "require_files" shows you how can you get files from directory
+in a recursive way and stuffs like that so you can be lay
+
 ## LICENSE
 
 (The MIT License)
