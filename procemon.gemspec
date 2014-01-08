@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.version       = File.open(File.join(File.dirname(__FILE__),"VERSION")).read.split("\n")[0].chomp.gsub(' ','')
   spec.authors       = ["Adam Luzsi"]
   spec.email         = ["adamluzsi@gmail.com"]
-  spec.description   = %q{This is a collection of my Ruby Procs in the adventure of becoming the best! In short this provides extra tools in Application configs, argumens processing,daemonise, eval,port check, require relative files, or directories, string to duck parsing, system tmp_dir using, meta-programing, and a lot of monkey patch for extra functionality }
+  spec.description   = %q{This is a collection of my Ruby Procs in the adventure of becoming the best! In short this provides extra tools in Application configs, argumens processing,daemonise,eval, getting source of a block,method,process and work with it, or even fuse them into a new proc , require relative files, or directories, string to duck parsing, system tmp_dir using, meta-programing stuffs,async dsl for easy concurrency patterns, micro framework that can be used alongside with any framework and a lot of monkey patch for extra functions :) follow me on github if you like my work! }
   spec.summary       = %q{Gotta catch em all!}
   spec.homepage      = "https://github.com/adamluzsi/procemon"
   spec.license       = "MIT"
