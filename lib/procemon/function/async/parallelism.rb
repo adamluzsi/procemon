@@ -20,7 +20,6 @@ class Parallelism < CleanClass
       @pid= ::Kernel.fork do
 
         ::Kernel.trap("TERM") do
-          puts "hy"
           exit
         end
 
