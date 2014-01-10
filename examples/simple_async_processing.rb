@@ -1,40 +1,56 @@
 # Require Gemfile gems
 require_relative "../lib/procemon"
 
-calculation = async {
+# you can use simple :c also instead of :concurrency
+# remember :concurrency is all about GIL case, so
+# you can modify the objects in memory
+# This is ideal for little operations in simultaneously or
+# when you need to update objects in the memory
+calculation = async :concurrency do
 
-  sleep 10
-  4 * 4
-}
+  sleep 2
+  4 * 2
 
-puts "hello world"
+end
+puts "hello concurrency"
 
-calculation += 1
+calculation.value += 1
 
-puts calculation
+puts calculation.value
 
 #>--------------------------------------------------
+# or you can use simple {} without sym and this will be by default a
+# :concurrency pattern
+
+calculation = async { sleep 3; 4 * 3 }
+
+puts "hello simple concurrency"
+
+calculation.value += 1
+
+# remember you have to use .value to cal the return value from the code block!
+puts calculation.value
 
 
-test1 = async {
+#>--------------------------------------------------
+# now let's see the Parallelism
+# you can use simple :p also instead of :parallelism
+# remember :parallelism is all about real OS thread case, so
+# you CANT modify the objects in memory only copy on write modify
+# This is ideal for big operations where you need do a big process
+# and only get the return value so you can do big works without the fear of the
+# Garbage collector slowness or the GIL lock
+# when you need to update objects in the memory use :concurrency
+calculation = async :parallelism do
 
-  sleep 8
-  hello= 14
-  sup= "the world is yours"
+  sleep 4
+  4 * 5
 
-  sup
+end
+puts "hello parallelism"
 
-}
+calculation.value += 1
 
-test2 = async {
-  sleep(4)
-  "world"
-}
+puts calculation.value
 
-start_time= Time.now
-
-asd= test1
-puts asd
-
-puts test1.value == test2.value
-puts Time.now-start_time
+#>--------------------------------------------------

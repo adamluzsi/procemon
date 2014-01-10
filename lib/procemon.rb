@@ -2,8 +2,8 @@
 module Procemon
 
   require File.join(File.dirname(__FILE__),"procemon","function","require")
-  require_relative_directory File.join("procemon","function")
   require_relative_directory File.join("procemon","mpatch")
+  require_relative_directory File.join("procemon","function")
 
   # load up helpers
   #Dir.glob(\
