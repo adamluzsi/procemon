@@ -20,15 +20,9 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   ##=======Runtime-ENV================##
-  #spec.add_runtime_dependency "commander", ['~>4.1.3']
-  #spec.add_runtime_dependency "activesupport"
-
-  ## Node.JS
-  #spec.add_runtime_dependency "execjs"
+  spec.add_runtime_dependency "asynchronous"#, ['~>4.1.3']
 
   ##=======Development-ENV============##
-  #spec.add_development_dependency "commander",['~>4.1.3']
-  #spec.add_development_dependency "rake"
-  #spec.add_development_dependency "bundle"
+  spec.add_development_dependency "asynchronous"#,['~>4.1.3']
 
 end
