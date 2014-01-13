@@ -1,7 +1,7 @@
 class Object
 
-   def must_be class_name
-
+  # basic validations for those who fear the DUCK!
+  def must_be class_name
      if class_name.class == Class
        begin
          if self.class != class_name
@@ -15,7 +15,7 @@ class Object
          end
        end
      end
-     return nil
-   end unless method_defined? :must_be
+    return self
+  end unless method_defined? :must_be
 
 end
