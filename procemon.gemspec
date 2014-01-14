@@ -23,6 +23,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "asynchronous"#, ['~>4.1.3']
 
   ##=======Development-ENV============##
-  spec.add_development_dependency "asynchronous"#,['~>4.1.3']
+  #spec.add_development_dependency "asynchronous"#,['~>4.1.3']
 
 end

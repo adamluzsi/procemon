@@ -22,7 +22,6 @@ module Procemon
           when "--kill","-kill"
             Application.daemon= "stop"
 
-
           when "--config","-c"
             Application.config_file= ARGV[(ARGV.index(one_param)+1)]
 
