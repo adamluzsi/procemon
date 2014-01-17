@@ -27,6 +27,10 @@ proc_source= test.source
 #
 #}
 
+puts Proc.new{|e| puts e }.source.body
+
+Process.exit
+
 # example for terminal run
 puts method_source
 puts method_source.body,"---------"
@@ -36,7 +40,9 @@ puts method_source.params.inspect,"---------"
 
 puts "\n"
 
-merged_proc= ( method_source.body + proc_source.body ).build(*(method_source.params+proc_source.params))
+merged_proc= ( method_source.body +
+    proc_source.body
+).build(*(method_source.params+proc_source.params))
 puts merged_proc
 puts merged_proc.to_proc
 puts merged_proc.to_proc.source

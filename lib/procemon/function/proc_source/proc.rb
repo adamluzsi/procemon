@@ -10,7 +10,7 @@ class Proc
       block= 0
     end
 
-    unless inspect.nil?
+    unless ProcSource.source_cache[self.inspect].nil?
       return ProcSource.source_cache[self.inspect]
     else
 
