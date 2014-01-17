@@ -135,5 +135,6 @@ class Array
     return Hash[*options]
   end
 
+  alias :get_options! :extract_options!
 
 end
