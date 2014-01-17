@@ -2,8 +2,11 @@ class ProcSource < String
 
   class << self
     attr_accessor :source_cache
+    attr_accessor :eval_keys
   end
   self.source_cache= Hash.new
+  self.eval_keys= Array.new
+
 
   def self.build(source_code_to_be_wrappered,*params_obj_array)
     self.new(source_code_to_be_wrappered).wrapper_around!(*params_obj_array)
@@ -34,10 +37,12 @@ class ProcSource < String
         return_proc= eval(self,binding)
       end
 
-      #do cache to proc!
-      #begin
-      #  ProcSource.source_cache[return_proc.source_location]= self
-      #end
+      if ProcSource.eval_keys.count > 100
+        ProcSource.eval_keys.each {|e| ProcSource.source_cache.delete(e) }
+        ProcSource.eval_keys.clear
+      end
+      ProcSource.source_cache[return_proc.inspect]= self
+      ProcSource.eval_keys.push return_proc.inspect
 
       return return_proc
     end

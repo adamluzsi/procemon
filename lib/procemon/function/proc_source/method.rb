@@ -10,8 +10,8 @@ module MethodToProcSource
       block= 0
     end
 
-    unless ProcSource.source_cache[self.source_location].nil?
-      return ProcSource.source_cache[self.source_location]
+    unless ProcSource.source_cache[self.inspect].nil?
+      return ProcSource.source_cache[self.inspect]
     else
 
       File.open(File.expand_path(self.source_location[0])
@@ -44,7 +44,7 @@ module MethodToProcSource
         return_string.sub!(/^[^{]*(?!={)/,'Proc.new')
       end
 
-      ProcSource.source_cache[self.source_location]= return_string
+      ProcSource.source_cache[self.inspect]= return_string
 
       return return_string
     end
