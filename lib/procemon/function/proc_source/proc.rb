@@ -2,11 +2,7 @@ class Proc
 
   # create a raw eval-able process source, so you can set
   # the right bindings using the .to_proc call from String methods
-  class << self
-    attr_accessor :source_cache
-  end
-  Proc.source_cache= Hash.new
-  def source(test=nil)
+  def source
 
     # defaults
     begin
@@ -14,8 +10,8 @@ class Proc
       block= 0
     end
 
-    unless Proc.source_cache[self.source_location].nil?
-      return Proc.source_cache[self.source_location]
+    unless ProcSource.source_cache[self.source_location].nil?
+      return ProcSource.source_cache[self.source_location]
     else
 
       File.open(File.expand_path(self.source_location[0])
@@ -32,7 +28,7 @@ class Proc
         return_string.sub!(/^[^{]*(?!={)/,'Proc.new')
       end
 
-      Proc.source_cache[self.source_location]= return_string
+      ProcSource.source_cache[self.source_location]= return_string
 
       return return_string
     end

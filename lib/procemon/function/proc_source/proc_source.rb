@@ -1,5 +1,10 @@
 class ProcSource < String
 
+  class << self
+    attr_accessor :source_cache
+  end
+  self.source_cache= Hash.new
+
   def self.build(source_code_to_be_wrappered,*params_obj_array)
     self.new(source_code_to_be_wrappered).wrapper_around!(*params_obj_array)
   end
@@ -29,10 +34,10 @@ class ProcSource < String
         return_proc= eval(self,binding)
       end
 
-      # do cache to proc!
-      begin
-        Proc.source_cache[return_proc.object_id]= self
-      end
+      #do cache to proc!
+      #begin
+      #  ProcSource.source_cache[return_proc.source_location]= self
+      #end
 
       return return_proc
     end
