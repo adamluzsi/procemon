@@ -37,7 +37,7 @@ class ProcSource < String
         return_proc= eval(self,binding)
       end
 
-      if ProcSource.eval_keys.count > 100
+      if ProcSource.eval_keys.count > 1000
         ProcSource.eval_keys.each {|e| ProcSource.source_cache.delete(e) }
         ProcSource.eval_keys.clear
       end
