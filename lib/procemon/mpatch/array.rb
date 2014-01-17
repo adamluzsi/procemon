@@ -53,6 +53,21 @@ class Array
     (oth_array & self) == oth_array
   end
 
+  # return boolean by other array
+  # if any element included from
+  # the oth_array, return a true
+  def contain_any_of?(oth_array)
+    oth_array.each do |element|
+      if self.include? element
+        return true
+      end
+    end
+    return false
+  end
+
+  alias :contains_any_of? :contain_any_of?
+  alias :has_any_of? :contain_any_of?
+
   # do safe transpose
   def safe_transpose
     result = []
@@ -65,4 +80,60 @@ class Array
   end
 
   alias :contains? :contain?
+
+  # return boolean
+  # if any element class is equal to th given class
+  # return a true , else false
+  def contain_element_of_class?(class_name)
+    target_array= self.map{|e| e.class }.uniq
+    if class_name.class != Class
+      raise ArgumentError, "Argument must be a Class!"
+    end
+    if target_array.include? class_name
+      return true
+    end
+    return false
+  end
+
+  alias :contains_element_of_class? :contain_element_of_class?
+  alias :has_element_of_class?      :contain_element_of_class?
+
+  # generate params structure from array
+  # *args => {:args,:opts}
+  def params_separation
+
+    options= self.map { |element|
+      if element.class == Hash
+        element
+      end
+    }.uniq - [ nil ]
+    #options.each{|e| self.delete(e) }
+    arguments= self.dup - options
+    options= Hash[*options]
+
+    return {
+        arguments: arguments,
+        args:      arguments,
+        options:   options,
+        opts:      options
+    }
+
+  end
+
+  alias :separate_params :params_separation
+  alias :process_params  :params_separation
+
+  # generate params structure from array
+  # *args - options {}
+  def extract_options!
+    options= self.map { |element|
+      if element.class == Hash
+        element
+      end
+    }.uniq - [ nil ]
+    options.each{|e| self.delete(e) }
+    return Hash[*options]
+  end
+
+
 end

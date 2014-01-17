@@ -41,6 +41,10 @@ class ProcSource < String
   def body
 
     body= ProcSourceBody.new(self.dup.to_s)
+
+    body.gsub!("{","{\n")
+    body.gsub!("}","\n}")
+
     body.sub!(/^\s*Proc\.new\s*{ *[\S ]*/,String.new)
     body.gsub!(/^$\n/, String.new)
     body.sub!(/\s*}\s*$/,String.new)
