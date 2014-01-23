@@ -138,25 +138,22 @@ module Kernel
   alias :generate_config    :metaloader_framework
   alias :metaload_framework :metaloader_framework
 
-  def generate_documentation(target_folder= File.join(Dir.pwd,"docs"), boolean= false,keyword= "generate")
-    boolean= false if boolean.nil?
-    if boolean == true
+  def generate_documentation(
+          target_folder   = File.join(Dir.pwd,"docs"),
+          keyword= "gen",
+          create_doc_bool = Application.doc)
 
-      document_generators= Array.new
-      tmp_path_container= Dir.glob(File.join(target_folder, "**", "*.{rb,ru}"))
-      tmp_path_container.each do |one_path|
-        if one_path.include? keyword
-          document_generators.push one_path
-        end
-      end
+    if create_doc_bool == true
 
-      document_generators.each do |docs_file_path|
-        require docs_file_path
+      Dir.glob(File.join(Dir.pwd,'{doc,docs,document,documents}','**',"*_#{keyword}.{rb,ru}")).each do |one_doc_generator|
+        require one_doc_generator
       end
+      puts "done!"
 
       Process.exit
 
     end
+
   end
 
   def get_meta_config(target_folder= File.join(Dir.pwd,"lib","**","meta") )

@@ -29,7 +29,7 @@ module Procemon
             Application.environment= ARGV[(ARGV.index(one_param)+1)]
 
           when "--documentation","--generate_documentation","-doc"
-            Application.create_documentation= true
+            Application.doc= true
 
           when "--db_drop","--drop_database","-dbdrop"
             Application.db_drop= true

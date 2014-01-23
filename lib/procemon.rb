@@ -33,20 +33,12 @@ module Procemon
     ObjectSpace.garbage_collect
 
     # documentation generate
-    generate_documentation(Application.create_documentation)
+    generate_documentation
 
     # Daemonize
     Daemon.init
 
   end
 
-  # load from docs the "_gen.rb" files than a gentle exit
-  def self.doc_gen
-    Dir.glob(File.join(Dir.pwd,'{doc,docs,document,documents}','**','*_gen.{rb,ru}')).each do |one_doc_generator|
-      require one_doc_generator
-    end
-    puts "done!"
-    Process.exit
-  end
 
 end

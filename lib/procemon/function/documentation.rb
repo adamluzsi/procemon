@@ -1,4 +1,7 @@
 class String
+
+
+
   def find_doc_part(oth_str)
     self.each_line do |target_line|
       puts target_line[0..(oth_str.length-1)]
@@ -7,4 +10,5 @@ class String
       end
     end
   end
+
 end

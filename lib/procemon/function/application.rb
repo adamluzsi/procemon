@@ -12,13 +12,15 @@ module Application
                   :db_drop,
                   :daemon,
                   :config_file,
-                  :create_documentation,
+                  :doc,
                   :client
   end
 
   self.client      ||= Hash.new()
   self.config      ||= Hash.new()
   self.environment ||= String.new()
+
+  self.doc ||= false
 
 end
 
