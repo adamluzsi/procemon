@@ -99,7 +99,7 @@ class Array
   alias :has_element_of_class?      :contain_element_of_class?
 
   # generate params structure from array
-  # *args => {:args,:opts}
+  # *args => [:opts,:args]
   def params_separation
 
     options= self.map { |element|
@@ -111,12 +111,7 @@ class Array
     arguments= self.dup - options
     options= Hash[*options]
 
-    return {
-        arguments: arguments,
-        args:      arguments,
-        options:   options,
-        opts:      options
-    }
+    return [options,arguments]
 
   end
 
@@ -124,17 +119,31 @@ class Array
   alias :process_params  :params_separation
 
   # generate params structure from array
-  # *args - options {}
-  def extract_options!
-    options= self.map { |element|
-      if element.class == Hash
+  # return_array
+  def extract_class! class_name
+
+    if class_name.class != Class
+      raise ArgumentError, "parameter must be a class name"
+    end
+
+    return_value= self.map { |element|
+      if element.class == class_name
         element
       end
     }.uniq - [ nil ]
-    options.each{|e| self.delete(e) }
+    return_value.each{|e| self.delete(e) }
+
+    return return_value
+
+  end
+  alias :cut_class! :extract_class!
+
+  # generate params structure from array
+  # *args - options {}
+  def extract_options!
+    options= self.extract_class! Hash
     return Hash[*options]
   end
-
-  alias :get_options! :extract_options!
+  alias :extract_hash! :extract_options!
 
 end

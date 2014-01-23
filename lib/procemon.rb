@@ -1,11 +1,10 @@
 #encoding: UTF-8
 module Procemon
 
+  require 'asynchronous'
   require File.join(File.dirname(__FILE__),"procemon","function","require")
   require_relative_directory File.join("procemon","mpatch")
   require_relative_directory File.join("procemon","function")
-  require 'asynchronous'
-
 
   def self.init_all
 
@@ -19,7 +18,7 @@ module Procemon
     tmpdir_init
 
     # create config singleton
-    generate_config
+    metaloader_framework
 
     # load meta-s
     meta_load
@@ -41,16 +40,13 @@ module Procemon
 
   end
 
+  # load from docs the "_gen.rb" files than a gentle exit
   def self.doc_gen
-    Dir.glob(File.join(Dir.pwd,'{doc,docs,document,documents}','**','generate_*')).each do |one_doc_generator|
+    Dir.glob(File.join(Dir.pwd,'{doc,docs,document,documents}','**','*_gen.{rb,ru}')).each do |one_doc_generator|
       require one_doc_generator
     end
     puts "done!"
-    Process.exit!
+    Process.exit
   end
-
-  ### Load the requirements in to the general Module
-  #load File.expand_path(File.join(File.dirname(__FILE__),'procemon'
-
 
 end
