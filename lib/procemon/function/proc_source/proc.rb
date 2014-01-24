@@ -14,6 +14,10 @@ class Proc
       return ProcSource.source_cache[self.inspect]
     else
 
+      if self.source_location.nil?
+        return "Proc.new { }"
+      end
+
       File.open(File.expand_path(self.source_location[0])
       ).each_line_from self.source_location[1] do |line|
         block += line.source_formater_for_line_sub
@@ -28,7 +32,9 @@ class Proc
         return_string.sub!(/^[^{]*(?!={)/,'Proc.new')
       end
 
-      ProcSource.source_cache[self.inspect]= return_string
+      if !self.source_location.nil?
+        ProcSource.source_cache[self.inspect]= return_string
+      end
 
       return return_string
     end
