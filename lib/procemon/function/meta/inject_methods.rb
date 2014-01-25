@@ -4,7 +4,6 @@ module InjectMethods
   # by default the before or after sym is not required
   #
   # options can be:
-  #  - params: "merged" -> if given than the block params and the original method params will be merged
   #  - add: 'before'/'after' add your code into method before the original part of after
   #
   #  Test.inject_singleton_method :hello do |*args|
@@ -41,7 +40,6 @@ module InjectMethods
   # by default the before or after sym is not required
   #
   # options can be:
-  #  - params: "merged" -> if given than the block params and the original method params will be merged
   #  - add: 'before'/'after' add your code into method before the original part of after
   #
   #  Test.inject_instance_method :hello, params: "merged" do |*args|
