@@ -22,8 +22,8 @@ TestT.inject_singleton_method :test, add: "after" do
   puts "hello world! singleton"
 end
 
-#puts "---\nafter,singleton case:"
-#TestT.test
+puts "---\nafter,singleton case:"
+TestT.test
 
 puts "---\nbefore,instance case:"
 TestT.new.test "boogie man"

@@ -50,10 +50,7 @@ module InjectMethods
   #
   def inject_instance_method(method,options={},&block)
 
-    unbound_method= self.instance_method(method).clone#.source.to_proc(self.binding?)
-
-    # source code
-
+    unbound_method= self.instance_method(method).clone
 
     self.class_eval do
       undef_method method
