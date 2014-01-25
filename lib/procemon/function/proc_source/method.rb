@@ -15,7 +15,7 @@ module MethodToProcSource
     else
 
       if self.source_location.nil?
-        return "Proc.new { }"
+        return nil
       end
 
       File.open(File.expand_path(self.source_location[0])
@@ -38,7 +38,8 @@ module MethodToProcSource
           return_string.sub!(args_to_replace,"|#{args_to_replace}|")
         end
 
-      rescue TypeError,NilError
+      rescue TypeError,NoMethodError
+        return nil
       end
 
       return_string.sub!(/\s*\bdef\s*[\w\S]*/,'Proc.new{')

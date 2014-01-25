@@ -1,4 +1,4 @@
-class Class
+module InjectMethods
 
   # this will inject a code block to a target instance method
   # by default the before or after sym is not required
@@ -16,12 +16,21 @@ class Class
     original_method= self.method(method).clone
     self.singleton_class.__send__ :undef_method, method
 
-    source_code= InjectMethodHelper.generate_source(
-        block,original_method,options
-    )
+    # source code
+    begin
+      sources= nil
+      case options[:add].to_s.downcase[0]
+        when "a"
+          sources= [original_method.to_proc,block]
+        else
+          sources= [block,original_method.to_proc]
+      end
+    end
 
     self.define_singleton_method method do |*arguments|
-      source_code.to_proc(self.binding?).call(*arguments)
+      sources.each do |proc|
+        proc.call_with_binding(original_method.binding?,*arguments)
+      end
     end
 
     return nil
@@ -41,57 +50,43 @@ class Class
   #
   def inject_instance_method(method,options={},&block)
 
-    original_method= self.instance_method(method).clone
+    unbound_method= self.instance_method(method).clone#.source.to_proc(self.binding?)
 
-    source_code= InjectMethodHelper.generate_source(
-        block,original_method,options
-    )
+    # source code
+
 
     self.class_eval do
       undef_method method
       define_method(
-          method,
-          source_code.to_proc(self.binding?)
+        method,
+        Proc.new { |*args|
+
+          begin
+            case options[:add].to_s.downcase[0]
+              when "a"
+                unbound_method.bind(self).call(*args)
+                block.call_with_binding(self.binding?,*args)
+
+              else
+                block.call_with_binding(self.binding?,*args)
+                unbound_method.bind(self).call(*args)
+            end
+          end
+
+        }
       )
     end
 
   end
-
   alias :extend_instance_method :inject_instance_method
 
 end
 
-module InjectMethodHelper
 
-  def self.generate_source block,original_method,options
+class Module
+  include InjectMethods
+end
 
-    # source code
-    begin
-      source_code= nil
-      case options[:add].to_s.downcase[0]
-        when "a"
-          source_code= original_method.source.body+block.source.body
-        else
-          source_code= block.source.body+original_method.source.body
-      end
-    end
-
-    # params
-    begin
-      source_params= nil
-      case options[:params].to_s.downcase[0]
-        when "m"
-          begin
-            source_params= (block.source.params+original_method.source.params)
-          end
-        else
-          begin
-            source_params= original_method.source.params
-          end
-      end
-    end
-
-    return source_code.build(*source_params)
-  end
-
+class Class
+  include InjectMethods
 end

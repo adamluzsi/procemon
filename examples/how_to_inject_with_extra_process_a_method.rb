@@ -6,28 +6,27 @@ class TestT
     puts self
   end
 
-  def test
-    puts self
+  def test string
+    puts self,string
   end
 
 end
 
-TestT.inject_instance_method :test do
+TestT.inject_instance_method :test do |str|
 
-  puts "hello world! instance"
+  puts "hello world! instance "+str
 
 end
 
-TestT.inject_singleton_method :test, params: "after" do
-
+TestT.inject_singleton_method :test, add: "after" do
   puts "hello world! singleton"
-
 end
 
-puts "\nafter,singleton case:"
-TestT.test
-puts "\nbefore,instance case:"
-TestT.new.test
+#puts "---\nafter,singleton case:"
+#TestT.test
+
+puts "---\nbefore,instance case:"
+TestT.new.test "boogie man"
 
 
 #after,singleton case:
