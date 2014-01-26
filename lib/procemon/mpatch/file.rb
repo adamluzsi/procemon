@@ -61,7 +61,7 @@ class File
       text.gsub!(/\r\n?/, "\n")
       text.each_line do |*line|
         if line_num >= start_at
-          block.call *line
+          block.call #*line
         end
         line_num += 1
       end

@@ -19,10 +19,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  ##=======Runtime-ENV================##
-  spec.add_runtime_dependency "asynchronous"#, ['~>4.1.3']
-
-  ##=======Development-ENV============##
-  #spec.add_development_dependency "asynchronous"#,['~>4.1.3']
+  spec.add_dependency "asynchronous"
+  spec.add_dependency "sourcerer"
 
 end

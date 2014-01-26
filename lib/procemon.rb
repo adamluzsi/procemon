@@ -2,6 +2,8 @@
 module Procemon
 
   require 'asynchronous'
+  require 'sourcerer'
+
   require File.join(File.dirname(__FILE__),"procemon","function","require")
   require_relative_directory File.join("procemon","mpatch")
   require_relative_directory File.join("procemon","function")
