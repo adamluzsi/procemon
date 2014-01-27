@@ -59,6 +59,8 @@ class Hash
     dup.deep_merge!(other_hash)
   end unless method_defined? :deep_merge
 
+  alias :+ :deep_merge
+
   # Same as +deep_merge+, but modifies +self+.
   def deep_merge!(other_hash)
     other_hash.each_pair do |k,v|
