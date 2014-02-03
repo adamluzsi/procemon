@@ -21,5 +21,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "asynchronous"
   spec.add_dependency "sourcerer"
+  spec.add_dependency "loader"
 
 end

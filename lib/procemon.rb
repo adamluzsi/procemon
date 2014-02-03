@@ -3,8 +3,8 @@ module Procemon
 
   require 'asynchronous'
   require 'sourcerer'
+  require 'loader'
 
-  require File.join(File.dirname(__FILE__),"procemon","function","require")
   require_relative_directory File.join("procemon","mpatch")
   require_relative_directory File.join("procemon","function")
 
@@ -20,16 +20,8 @@ module Procemon
     tmpdir_init
 
     # create config singleton
-    metaloader_framework
-
-    # load meta-s
-    meta_load
-
-    # mount libs
-    mount_libs
-
-    # mount offline modules
-    mount_modules
+    Loader.metaloader_framework root: Loader.caller_root_folder,
+                                config_obj: Application.config
 
     # garbage collect
     ObjectSpace.garbage_collect

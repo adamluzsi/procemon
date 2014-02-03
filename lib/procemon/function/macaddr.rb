@@ -91,6 +91,7 @@ module Mac
   end
 
   RE = %r/(?:[^:\-]|\A)(?:[0-9A-F][0-9A-F][:\-]){5}[0-9A-F][0-9A-F](?:[^:\-]|\Z)/io
+
 end
 
 MacAddr = Macaddr = Mac
