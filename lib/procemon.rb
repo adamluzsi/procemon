@@ -23,6 +23,12 @@ module Procemon
     Loader.metaloader_framework root: Loader.caller_root_folder,
                                 config_obj: Application.config
 
+    Dir.glob(File.join(Loader.caller_root_folder,"{lib,libs}","*")).each do |path|
+      if !File.directory? path
+        require path
+      end
+    end
+
     # garbage collect
     ObjectSpace.garbage_collect
 
