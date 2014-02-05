@@ -81,6 +81,14 @@ class Hash
     end
   end unless method_defined? :deep_include?
 
+  # map hash will work just alike map but instead of an array it will return a hash obj
+  #
+  # {:hello=> "world",:world => "hello"}.map_hash{|k,v| [ k , 123] }
+  # #> {:hello=>123, :world=>123}
+  #
+  # {:hello=> "world",:world => "hello"}.map_hash{|k,v| { k => 123 } }
+  # #> {:hello=>123, :world=>123}
+  #
   def map_hash &block
 
     tmp_hash= Hash.new
