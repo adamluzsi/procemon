@@ -86,7 +86,13 @@ class Hash
     tmp_hash= Hash.new
     map_hash_obj= self.map &block
     map_hash_obj.each do |hash|
+
+      if hash.class <= Array
+        hash= Hash[*hash]
+      end
+
       tmp_hash.deep_merge!(hash)
+
     end
 
     return tmp_hash
