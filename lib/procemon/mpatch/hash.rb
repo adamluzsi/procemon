@@ -81,4 +81,15 @@ class Hash
     end
   end unless method_defined? :deep_include?
 
+  def map_hash &block
+
+    tmp_hash= Hash.new
+    map_hash_obj= self.map &block
+    map_hash_obj.each do |hash|
+      tmp_hash.deep_merge!(hash)
+    end
+
+    return tmp_hash
+  end
+
 end
