@@ -4,8 +4,8 @@ module Procemon
   require 'asynchronous'
   require 'sourcerer'
   require 'loader'
+  require 'mpatch'
 
-  require_relative_directory File.join("procemon","mpatch")
   require_relative_directory File.join("procemon","function")
 
   def self.init_all

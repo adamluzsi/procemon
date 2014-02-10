@@ -1,16 +1,18 @@
 PATH
   remote: .
   specs:
-    procemon (0.7.0)
+    procemon (0.8.1)
       asynchronous
       loader
+      mpatch
       sourcerer
 
 GEM
   remote: http://rubygems.org/
   specs:
-    asynchronous (1.0.3)
+    asynchronous (1.0.4)
     loader (1.0.2)
+    mpatch (1.0.0)
     sourcerer (0.5.2)
 
 PLATFORMS
