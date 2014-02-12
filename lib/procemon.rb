@@ -19,6 +19,9 @@ module Procemon
     # init temporarily directory
     tmpdir_init
 
+    # Daemonize
+    Daemon.init
+
     # create config singleton
     Loader.metaloader_framework root: Loader.caller_root_folder,
                                 config_obj: Application.config
@@ -34,9 +37,6 @@ module Procemon
 
     # documentation generate
     generate_documentation
-
-    # Daemonize
-    Daemon.init
 
   end
 
