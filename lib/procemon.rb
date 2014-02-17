@@ -1,7 +1,6 @@
 #encoding: UTF-8
 module Procemon
 
-  require 'asynchronous'
   require 'sourcerer'
   require 'loader'
   require 'mpatch'
