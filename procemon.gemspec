@@ -22,5 +22,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "sourcerer"
   spec.add_dependency "loader"
   spec.add_dependency "mpatch"
+  spec.add_dependency "bindless"
 
 end
