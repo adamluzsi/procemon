@@ -4,6 +4,8 @@ module Procemon
   require 'sourcerer'
   require 'loader'
   require 'mpatch'
+  require 'bindless'
+
 
   require_relative_directory File.join("procemon","function")
 
