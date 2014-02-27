@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    procemon (0.8.1)
-      asynchronous
+    procemon (1.0.2)
+      bindless
       loader
       mpatch
       sourcerer
@@ -10,10 +10,16 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
-    asynchronous (1.0.4)
-    loader (1.0.2)
-    mpatch (1.0.0)
+    active_support (3.0.0)
+      activesupport (= 3.0.0)
+    activesupport (3.0.0)
+    bindless (1.0.0)
+    loader (1.0.5)
+    mpatch (1.3.0)
+      str2duck
     sourcerer (0.5.2)
+    str2duck (0.0.1)
+      active_support
 
 PLATFORMS
   ruby
