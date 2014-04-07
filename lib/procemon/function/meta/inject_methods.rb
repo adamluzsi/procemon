@@ -34,7 +34,9 @@ module InjectMethods
 
     return nil
   end
-  alias :extend_singleton_method :inject_singleton_method
+  alias :extend_singleton_method  :inject_singleton_method
+  alias :hook_singleton_method    :inject_singleton_method
+
 
   # this will inject a code block to a target singleton method
   # by default the before or after sym is not required
@@ -74,14 +76,8 @@ module InjectMethods
 
   end
   alias :extend_instance_method :inject_instance_method
+  alias :hook_instance_method   :inject_instance_method
 
 end
 
-
-class Module
-  include InjectMethods
-end
-
-class Class
-  include InjectMethods
-end
+Module.__send__ :include, InjectMethods

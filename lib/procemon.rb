@@ -1,7 +1,8 @@
 #encoding: UTF-8
 module Procemon
 
-  require 'sourcerer'
+  #require 'sourcerer'
+
   require 'loader'
   require 'mpatch'
   require 'bindless'
