@@ -3,6 +3,7 @@ module Procemon
 
     require "tmpdir"
     def tmpdir_init
+
       begin
         Dir.mkdir File.join(Dir.tmpdir,$0)
       rescue Errno::EEXIST

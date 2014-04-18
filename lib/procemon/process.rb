@@ -9,6 +9,7 @@ module Process
                  Application.log,
                  Application.daemon_stderr
   end
+
   def self.stop
     Daemon.stop
   end

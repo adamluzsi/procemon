@@ -8,7 +8,7 @@ module Procemon
   require 'bindless'
 
 
-  require_relative_directory File.join("procemon","function")
+  require_relative_directory File.join("procemon","function"),:r
 
   def self.init_all
 
