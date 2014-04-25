@@ -12,13 +12,13 @@ class TestT
 
 end
 
-TestT.inject_instance_method :test do |str|
+TestT.inject_instance_method :meta do |str|
 
   puts "hello world! instance "+str
 
 end
 
-TestT.inject_singleton_method :test, add: "after" do
+TestT.inject_singleton_method :meta, add: "after" do
   puts "hello world! singleton"
 end
 

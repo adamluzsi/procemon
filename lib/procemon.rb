@@ -1,46 +1,12 @@
 #encoding: UTF-8
 module Procemon
 
-  #require 'sourcerer'
-
-  require 'loader'
-  require 'mpatch'
   require 'bindless'
+  require 'loader'
 
+  require 'mpatch/object'
+  MPatch.patch!
 
-  require_relative_directory File.join("procemon","function"),:r
-
-  def self.init_all
-
-    # process the ARGV parameters
-    process_parameters
-
-    # project name
-    set_app_name_by_root_folder
-
-    # init temporarily directory
-    tmpdir_init
-
-    # Daemonize
-    Daemon.init
-
-    # create config singleton
-    Loader.metaloader_framework root: Loader.caller_root_folder,
-                                config_obj: Application.config
-
-    Dir.glob(File.join(Loader.caller_root_folder,"{lib,libs}","*")).each do |path|
-      if !File.directory? path
-        require path
-      end
-    end
-
-    # garbage collect
-    ObjectSpace.garbage_collect
-
-    # documentation generate
-    generate_documentation
-
-  end
-
+  require_relative_directory "procemon"
 
 end
