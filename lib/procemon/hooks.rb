@@ -1,4 +1,4 @@
-module InjectMethods
+module Procemon::Hooks
 
   # this will inject a code block to a target instance method
   # by default the before or after sym is not required
@@ -80,4 +80,4 @@ module InjectMethods
 
 end
 
-Module.__send__ :include, InjectMethods
+Module.__send__ :include, Procemon::Hooks

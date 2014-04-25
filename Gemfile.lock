@@ -1,17 +1,17 @@
 PATH
   remote: .
   specs:
-    procemon (1.1.1)
+    procemon (2.0.0.alpha)
       bindless
-      loader
+      loader (>= 1.2.3)
       mpatch
 
 GEM
   remote: http://rubygems.org/
   specs:
-    bindless (1.0.0)
-    loader (1.0.6)
-    mpatch (2.3.0)
+    bindless (1.0.1)
+    loader (1.2.3)
+    mpatch (2.8.1)
 
 PLATFORMS
   ruby

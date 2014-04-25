@@ -6,3 +6,4 @@
 pkg/
 .idea/
 dump/
+Gemfile.lock

@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.version       = File.open(File.join(File.dirname(__FILE__),"VERSION")).read.split("\n")[0].chomp.gsub(' ','')
   spec.authors       = ["Adam Luzsi"]
   spec.email         = ["adamluzsi@gmail.com"]
-  spec.description   = %q{ Lasso for Methods! You can Attack processes before and after running way to an existing method obj, without have to take care if methods code change on later on }
+  spec.description   = %q{ Lasso for Methods! You can hook up processes before and after to existing method objects, it's like a monkey patch without have to open up the actually method. }
   spec.summary       = %q{ Gotta catch em all! }
   spec.homepage      = "https://github.com/adamluzsi/procemon"
 
@@ -18,8 +18,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "loader",">= 1.2.3"
   spec.add_dependency "mpatch"
   spec.add_dependency "bindless"
-
-  # spec.add_dependency "daemon-ogre",">= 2.0.0"
-  # spec.add_dependency "configer"
 
 end

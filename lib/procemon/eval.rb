@@ -1,6 +1,4 @@
-module Procemon
-
-  module ObjectEXT
+module Procemon::ObjectEXT
 
     # safe_eval(string [, binding [, filename [,lineno]]] *allowed_class/module_names )  -> obj
     #
@@ -72,8 +70,6 @@ module Procemon
 
     end
 
-  end
-
-
-
 end
+
+Object.__send__ :include, Procemon::ObjectEXT
